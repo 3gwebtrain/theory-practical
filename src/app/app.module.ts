@@ -8,6 +8,9 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { SearchService } from './services/search.service';
 import { HeaderComponent } from './pages/header/header.component';
+import { ArtistComponent } from './pages/artist/artist.component';
+import { ArtistTrackListComponent } from './pages/Artist/artist-track-list/artist-track-list.component';
+import { ArtistAlbumListComponent } from './pages/Artist/artist-album-list/artist-album-list.component';
 
 
 const routes:Routes = [
@@ -16,7 +19,14 @@ const routes:Routes = [
 	{ path:"find", redirectTo:"search"},
 	{ path:"home", component:HomePageComponent},
 	{ path:"search", component : SearchPageComponent},
-	{ path:"**", component:HomePageComponent}
+	{ path:"artist/:artistId", component:ArtistComponent,
+		children:[
+			{path: '', redirectTo: 'tracks', pathMatch : 'full'},
+			{path: 'tracks', component: ArtistTrackListComponent},
+			{path: 'albums', component: ArtistAlbumListComponent}
+		]
+	},
+	{ path:"**", component:HomePageComponent},
 
 ]
 
@@ -25,7 +35,10 @@ const routes:Routes = [
 		AppComponent,
 		HomePageComponent,
 		SearchPageComponent,
-		HeaderComponent
+		HeaderComponent,
+		ArtistComponent,
+		ArtistTrackListComponent,
+		ArtistAlbumListComponent
 	],
 	imports: [
 		BrowserModule,
