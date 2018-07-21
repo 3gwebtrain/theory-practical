@@ -6,11 +6,17 @@ import { JsonpModule} from '@angular/http';
 import { AppComponent } from './app.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { SearchPageComponent } from './pages/search-page/search-page.component';
-import { SearchService } from './services/search.service';
 import { HeaderComponent } from './pages/header/header.component';
 import { ArtistComponent } from './pages/artist/artist.component';
 import { ArtistTrackListComponent } from './pages/artist/artist-track-list/artist-track-list.component';
 import { ArtistAlbumListComponent } from './pages/artist/artist-album-list/artist-album-list.component';
+
+import { SearchService } from './services/search.service';
+import { UserService } from './services/user.service';
+
+import { AlwaysAuthGuard } from './gurd/can-active';
+import { OnlyLoggedInUsersGuard } from './gurd/only-logged-in-user-gard';
+import { AlwaysAuthChildrenGuard } from './gurd/always-auth-children-guard';
 
 
 const routes:Routes = [
@@ -19,7 +25,11 @@ const routes:Routes = [
 	{ path:"find", redirectTo:"search"},
 	{ path:"home", component:HomePageComponent},
 	{ path:"search", component : SearchPageComponent},
-	{ path:"artist/:artistId", component:ArtistComponent,
+	{ 
+		path:"artist/:artistId", 
+		component:ArtistComponent,
+		canActivate: [OnlyLoggedInUsersGuard, AlwaysAuthGuard],
+		canActivateChild: [AlwaysAuthChildrenGuard],
 		children:[
 			{path: '', redirectTo: 'tracks', pathMatch : 'full'},
 			{path: 'tracks', component: ArtistTrackListComponent},
@@ -45,7 +55,13 @@ const routes:Routes = [
 		JsonpModule,
 		RouterModule.forRoot(routes, {useHash:true})
 	],
-	providers: [SearchService],
+	providers: [
+		SearchService, 
+		UserService, 
+		AlwaysAuthGuard, 
+		OnlyLoggedInUsersGuard, 
+		AlwaysAuthChildrenGuard
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
