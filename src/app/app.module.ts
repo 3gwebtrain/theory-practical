@@ -9,8 +9,8 @@ import { SearchPageComponent } from './pages/search-page/search-page.component';
 import { SearchService } from './services/search.service';
 import { HeaderComponent } from './pages/header/header.component';
 import { ArtistComponent } from './pages/artist/artist.component';
-import { ArtistTrackListComponent } from './pages/Artist/artist-track-list/artist-track-list.component';
-import { ArtistAlbumListComponent } from './pages/Artist/artist-album-list/artist-album-list.component';
+import { ArtistTrackListComponent } from './pages/artist/artist-track-list/artist-track-list.component';
+import { ArtistAlbumListComponent } from './pages/artist/artist-album-list/artist-album-list.component';
 
 
 const routes:Routes = [

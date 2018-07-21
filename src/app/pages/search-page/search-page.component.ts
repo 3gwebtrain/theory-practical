@@ -11,15 +11,14 @@ import { SearchItem } from '../../model/search-item-model';
 })
 export class SearchPageComponent implements OnInit {
 
-	private loading: boolean = false;
+	public loading: boolean = false;
 	private results: any;
 
-	constructor(private itunes: SearchService, 
+	constructor(public itunes: SearchService, 
 
 		private route: ActivatedRoute, private router: Router) { 
 
 		this.route.params.subscribe(params => {
-			console.log(params);
 			if(params['term']){
 				this.doSearch(params['term'])
 			}
@@ -35,7 +34,7 @@ export class SearchPageComponent implements OnInit {
 	}
 
 	onSearch(term: string) {
-		this.router.navigate(['search', {term: term}]);
+		this.router.navigate(['search',  {term:term}]);
 	}
 
 }
